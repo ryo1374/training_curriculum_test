@@ -1,22 +1,19 @@
 class CalendarsController < ApplicationController
 
-  # １週間のカレンダーと予定が表示されるページ
   def index
     get_week
     @plan = Plan.new
   end
 
-  # 予定の保存
   def create
-   
-    @plan = Plan.create(plan_params)
+    Plan.create(plan_params)
     redirect_to action: :index
   end
 
   private
 
   def plan_params
-    params.require(:plan).permit(:date, :plan, :commit)
+    params.require(:calendars).permit(:date, :plan)
   end
 
   def get_week
@@ -35,6 +32,7 @@ class CalendarsController < ApplicationController
       plans.each do |plan|
         today_plans.push(plan.plan) if plan.date == @todays_date + x
       end
+<<<<<<< Updated upstream
 
 
       wday_num = Date.today.wday[0]# wdayメソッドを用いて取得した数値
@@ -43,8 +41,11 @@ class CalendarsController < ApplicationController
       end
 
     
-      days = { :month => (@todays_date + x).month, :date => (@todays_date+x).day, :plans => today_plans, :wdays => wdays[x] }
+      days = { month: (@todays_date + x).month, date: (@todays_date+x).day, plans: today_plans, wdays:  wdays[x] }
 
+=======
+      days = { :month => (@todays_date + x).month, :date => (@todays_date+x).day, :plans => today_plans}
+>>>>>>> Stashed changes
       @week_days.push(days)
     end
 
